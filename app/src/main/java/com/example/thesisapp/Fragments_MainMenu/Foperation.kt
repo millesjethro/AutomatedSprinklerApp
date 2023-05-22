@@ -55,7 +55,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.toggleValve1.isEnabled = true
             binding.toggleValve2.isEnabled = true
             OperationsNumber = 1
-            database.child(DEVICEID).child("operation").setValue(OperationsNumber)
+            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
 
         }
         if(binding.automaticOverride.isChecked){
@@ -67,7 +67,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.automaticOverride.isEnabled = true
             binding.setBtnValve1.isEnabled = false
             OperationsNumber = 2
-            database.child(DEVICEID).child("operation").setValue(OperationsNumber)
+            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
         }
         if(binding.sensorOverride.isChecked){
             binding.automaticOverride.text = "Disabled "
@@ -78,21 +78,41 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.sensorOverride.isEnabled = true
             binding.setBtnSensor.isEnabled = true
             OperationsNumber = 3
-            database.child(DEVICEID).child("operation").setValue(OperationsNumber)
+            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
         }
         if(!binding.manualOverride.isChecked && !binding.automaticOverride.isChecked && !binding.sensorOverride.isChecked){
             binding.automaticOverride.text = "Disabled "
             binding.manualOverride.text = "Disabled "
             binding.sensorOverride.text = "Disabled "
 
+            database.child(DEVICEID).child("motor").child("Valve1").setValue("OFF")
+            database.child(DEVICEID).child("motor").child("Valve2").setValue("OFF")
+
+            HumidLimit = 101
+            MoistureLimit = 101
+
+            if(binding.setBtnSensor.text == "STOP"){
+                binding.setBtnSensor.text == "SET"
+            }
+
+            binding.schedTxtValve1.text = "PICK TIME"
+
+            binding.toggleValve1.isChecked = false
+            binding.toggleValve2.isChecked = false
+
             DisabledAll()
+
+            alarmMgr?.cancel(alarmIntent)
+            Log.e("Alarm1", "Canceled")
+
+
             binding.manualOverride.isEnabled = true
             binding.automaticOverride.isEnabled = true
             binding.sensorOverride.isEnabled = true
 
 
             OperationsNumber = 0
-            database.child(DEVICEID).child("operation").setValue(OperationsNumber)
+            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
         }
     }
 
@@ -190,8 +210,27 @@ class Foperation : Fragment(), View.OnClickListener {
     fun sensorOver(){
         HumidLimit = binding.edtHumidLimit.text.toString().toInt()
         MoistureLimit = binding.edtMoistureLimit.text.toString().toInt()
-
-
+        if(binding.edtHumidLimit.text.isNullOrEmpty() && binding.edtMoistureLimit.text.isNullOrEmpty()){
+            binding.edtHumidLimit.error = "Put a limit!"
+            binding.edtMoistureLimit.error = "Put a limit!"
+        }
+        else if(binding.edtHumidLimit.text.toString().toInt() >= 0 && binding.edtMoistureLimit.text.isNullOrEmpty()){
+            database.child(DEVICEID).child("operation").child("humidtylimit").setValue(HumidLimit)
+            Log.e("Limit","Humid has been set")
+        }
+        else if(binding.edtHumidLimit.text.isNullOrEmpty() && binding.edtMoistureLimit.text.toString().toInt() >= 0){
+            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+            Log.e("Limit","Moist has been set")
+        }
+        else if(binding.edtHumidLimit.text.toString().toInt() <= 0 ||binding.edtHumidLimit.text.toString().toInt() >= 101 ||binding.edtMoistureLimit.text.toString().toInt() >= 101|| binding.edtMoistureLimit.text.toString().toInt() <= 0) {
+            binding.edtHumidLimit.error = "One of the limit is below 0 or Above 100"
+            binding.edtMoistureLimit.error = "One of the limit is below 0 or Above 100"
+        }
+        else if(binding.edtHumidLimit.text.toString().toInt() >=0 && binding.edtMoistureLimit.text.toString().toInt() >= 0){
+            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+            database.child(DEVICEID).child("operation").child("humidtylimit").setValue(HumidLimit)
+            Log.e("Limit","Both has been set")
+        }
     }
 
     fun DisabledAll(){
@@ -221,30 +260,38 @@ class Foperation : Fragment(), View.OnClickListener {
 
     fun checkDatabaseOpt(){
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("operation").get().addOnSuccessListener {
-            Log.e("IT VALUE: ",it.value.toString())
-            when (it.value.toString()) {
-                "0" ->{
-                    binding.manualOverride.isChecked = false
-                    binding.automaticOverride.isChecked = false
-                    binding.sensorOverride.isChecked = false
-                }
-                "1" -> {
-                    binding.manualOverride.isChecked = true
-                    ChooseOperation()
-                }
-                "2" -> {
-                    binding.automaticOverride.isChecked = true
-                    ChooseOperation()
-                }
-                "3" -> {
-                    binding.sensorOverride.isChecked = true
-                    ChooseOperation()
+        database.child(DEVICEID).child("operation").child("number").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.e("Value",snapshot.value.toString())
+                when (snapshot.value.toString()) {
+                    "0" ->{
+                        binding.manualOverride.isChecked = false
+                        binding.automaticOverride.isChecked = false
+                        binding.sensorOverride.isChecked = false
+                    }
+                    "1" -> {
+                        DisabledAll()
+                        binding.manualOverride.isChecked = true
+                        ChooseOperation()
+                    }
+                    "2" -> {
+                        DisabledAll()
+                        binding.automaticOverride.isChecked = true
+                        ChooseOperation()
+                    }
+                    "3" -> {
+                        DisabledAll()
+                        binding.sensorOverride.isChecked = true
+                        ChooseOperation()
+                    }
                 }
             }
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
     fun toggleListener(){
@@ -304,9 +351,11 @@ class Foperation : Fragment(), View.OnClickListener {
             }
             (R.id.setBtn_sensor)->{
                 if(binding.setBtnSensor.text == "SET") {
+                    binding.setBtnSensor.text = "STOP"
                     sensorOver()
                 }
                 else{
+                    binding.setBtnSensor.text = "SET"
                     HumidLimit = 101
                     MoistureLimit = 101
                 }
