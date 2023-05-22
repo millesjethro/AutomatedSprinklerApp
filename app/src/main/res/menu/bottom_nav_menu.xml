@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fhome"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"/>
+    <item
+        android:id="@+id/foperation"
+        android:icon="@drawable/baseline_remove_red_eye_24"
+        android:title="Operation"/>
+    <item
+        android:id="@+id/faccount"
+        android:icon="@drawable/baseline_account_box_24"
+        android:title="Account"/>
+    <item
+        android:id="@+id/fsettings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Setting"/>
+</menu>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "285136215246",
+    "firebase_url": "https://thesisproj-134de-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "thesisproj-134de",
+    "storage_bucket": "thesisproj-134de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285136215246:android:04ecfacc9124def52a849f",
+        "android_client_info": {
+          "package_name": "com.example.thesisapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285136215246-skroe2liarskc4901bvi1at5jm3qvic0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thesisapp",
+            "certificate_hash": "e53e5b68110aa3c975c9a314a36f93dd12f516bb"
+          }
+        },
+        {
+          "client_id": "285136215246-5t61n8rl3vdgrmmnd1jsl4f3t776dbu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTZTZR8vtNfluso3LpbG3E5GrQcjRM1NI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285136215246-5t61n8rl3vdgrmmnd1jsl4f3t776dbu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
