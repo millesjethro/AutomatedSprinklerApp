@@ -26,8 +26,8 @@ class Foperation : Fragment(), View.OnClickListener {
     private var OperationsNumber = 0
     private var alarmMgr: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
-    private var HumidLimit = 101
-    private var MoistureLimit = 101
+    private var HumidLimit = ""
+    private var MoistureLimit = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,8 +88,8 @@ class Foperation : Fragment(), View.OnClickListener {
             database.child(DEVICEID).child("motor").child("Valve1").setValue("OFF")
             database.child(DEVICEID).child("motor").child("Valve2").setValue("OFF")
 
-            HumidLimit = 101
-            MoistureLimit = 101
+            database.child(DEVICEID).child("operation").child("moisturelimit").setValue("101")
+            database.child(DEVICEID).child("operation").child("humidtylimit").setValue("101")
 
             if(binding.setBtnSensor.text == "STOP"){
                 binding.setBtnSensor.text == "SET"
@@ -208,28 +208,46 @@ class Foperation : Fragment(), View.OnClickListener {
     }
 
     fun sensorOver(){
-        HumidLimit = binding.edtHumidLimit.text.toString().toInt()
-        MoistureLimit = binding.edtMoistureLimit.text.toString().toInt()
-        if(binding.edtHumidLimit.text.isNullOrEmpty() && binding.edtMoistureLimit.text.isNullOrEmpty()){
-            binding.edtHumidLimit.error = "Put a limit!"
-            binding.edtMoistureLimit.error = "Put a limit!"
+        HumidLimit = binding.edtHumidLimit.text.toString()
+        MoistureLimit = binding.edtMoistureLimit.text.toString()
+        var hum = false
+        var mos = false
+        if(HumidLimit.isNullOrEmpty()){
+            hum = false
         }
-        else if(binding.edtHumidLimit.text.toString().toInt() >= 0 && binding.edtMoistureLimit.text.isNullOrEmpty()){
+        else if(HumidLimit.toInt() in 0..100){
+            hum = true
+        }
+        else{
+            binding.edtHumidLimit.error = "Value between 0 and 100!"
+            hum = false
+        }
+
+        if(MoistureLimit.isNullOrEmpty()){
+            mos = false
+        }
+        else if(MoistureLimit.toInt() in 0..100){
+            mos = true
+        }
+        else{
+            binding.edtMoistureLimit.error = "Value between 0 and 100!"
+            mos = false
+        }
+
+
+        if(mos && hum){
             database.child(DEVICEID).child("operation").child("humidtylimit").setValue(HumidLimit)
-            Log.e("Limit","Humid has been set")
-        }
-        else if(binding.edtHumidLimit.text.isNullOrEmpty() && binding.edtMoistureLimit.text.toString().toInt() >= 0){
             database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
-            Log.e("Limit","Moist has been set")
         }
-        else if(binding.edtHumidLimit.text.toString().toInt() <= 0 ||binding.edtHumidLimit.text.toString().toInt() >= 101 ||binding.edtMoistureLimit.text.toString().toInt() >= 101|| binding.edtMoistureLimit.text.toString().toInt() <= 0) {
-            binding.edtHumidLimit.error = "One of the limit is below 0 or Above 100"
-            binding.edtMoistureLimit.error = "One of the limit is below 0 or Above 100"
-        }
-        else if(binding.edtHumidLimit.text.toString().toInt() >=0 && binding.edtMoistureLimit.text.toString().toInt() >= 0){
-            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+        else if(!mos && hum){
             database.child(DEVICEID).child("operation").child("humidtylimit").setValue(HumidLimit)
-            Log.e("Limit","Both has been set")
+        }
+        else if(mos && !hum){
+            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+        }
+        else{
+            binding.edtHumidLimit.error = "Put a value!"
+            binding.edtMoistureLimit.error = "Put a value!"
         }
     }
 
@@ -356,8 +374,8 @@ class Foperation : Fragment(), View.OnClickListener {
                 }
                 else{
                     binding.setBtnSensor.text = "SET"
-                    HumidLimit = 101
-                    MoistureLimit = 101
+                    database.child(DEVICEID).child("operation").child("moisturelimit").setValue("101")
+                    database.child(DEVICEID).child("operation").child("humidtylimit").setValue("101")
                 }
             }
         }
