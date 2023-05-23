@@ -29,12 +29,16 @@ class Foperation : Fragment(), View.OnClickListener {
     private lateinit var alarmIntent: PendingIntent
     private var HumidLimit = ""
     private var MoistureLimit = ""
-
+    private var DEVICEIDS = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFoperationBinding.inflate(inflater,container,false)
+        val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
+        val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
+        DEVICEIDS = deviceID.toString()
+        binding.currDevice.text = "CURRENT DEVICE: $DEVICEIDS"
         database = FirebaseDatabase.getInstance().getReference("device")
         toggleListener()
         checkDatabaseOpt()
@@ -65,7 +69,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.toggleValve1.isEnabled = true
             binding.toggleValve2.isEnabled = true
             OperationsNumber = 1
-            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
+            database.child(DEVICEIDS).child("operation").child("number").setValue(OperationsNumber)
 
         }
         if(binding.automaticOverride.isChecked){
@@ -78,7 +82,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.setBtnValve1.isEnabled = false
             binding.pickBtnVavle1.isEnabled = true
             OperationsNumber = 2
-            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
+            database.child(DEVICEIDS).child("operation").child("number").setValue(OperationsNumber)
         }
         if(binding.sensorOverride.isChecked){
             binding.automaticOverride.text = "Disabled "
@@ -91,18 +95,18 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.sensorOverride.isEnabled = true
             binding.setBtnSensor.isEnabled = true
             OperationsNumber = 3
-            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
+            database.child(DEVICEIDS).child("operation").child("number").setValue(OperationsNumber)
         }
         if(!binding.manualOverride.isChecked && !binding.automaticOverride.isChecked && !binding.sensorOverride.isChecked){
             binding.automaticOverride.text = "Disabled "
             binding.manualOverride.text = "Disabled "
             binding.sensorOverride.text = "Disabled "
 
-            database.child(DEVICEID).child("motor").child("Valve1").setValue("OFF")
-            database.child(DEVICEID).child("motor").child("Valve2").setValue("OFF")
+            database.child(DEVICEIDS).child("motor").child("Valve1").setValue("OFF")
+            database.child(DEVICEIDS).child("motor").child("Valve2").setValue("OFF")
 
-            database.child(DEVICEID).child("operation").child("moisturelimit").setValue("101")
-            database.child(DEVICEID).child("operation").child("humiditylimit").setValue("101")
+            database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue("101")
+            database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue("101")
 
             if(binding.setBtnSensor.text == "STOP"){
                 binding.setBtnSensor.text == "SET"
@@ -125,7 +129,7 @@ class Foperation : Fragment(), View.OnClickListener {
 
 
             OperationsNumber = 0
-            database.child(DEVICEID).child("operation").child("number").setValue(OperationsNumber)
+            database.child(DEVICEIDS).child("operation").child("number").setValue(OperationsNumber)
         }
     }
 
@@ -134,7 +138,7 @@ class Foperation : Fragment(), View.OnClickListener {
             if(binding.toggleValve1.isChecked){
                 //Valve 1 is on
                 if(OperationsNumber == 1) {
-                    database.child(DEVICEID).child("motor").child("Valve1").setValue("ON")
+                    database.child(DEVICEIDS).child("motor").child("Valve1").setValue("ON")
                 } else if(OperationsNumber == 2 && OperationsNumber == 3){
                     val toast =
                         Toast.makeText(activity, "You didn't choose any operation!", Toast.LENGTH_SHORT)
@@ -146,7 +150,7 @@ class Foperation : Fragment(), View.OnClickListener {
             else{
                 //Valve 1 is off
                 if(OperationsNumber == 1) {
-                    database.child(DEVICEID).child("motor").child("Valve1").setValue("OFF")
+                    database.child(DEVICEIDS).child("motor").child("Valve1").setValue("OFF")
                 } else if(OperationsNumber == 2 && OperationsNumber == 3){
                     val toast =
                         Toast.makeText(activity, "You didn't choose any operation!", Toast.LENGTH_SHORT)
@@ -160,7 +164,7 @@ class Foperation : Fragment(), View.OnClickListener {
             if(binding.toggleValve2.isChecked){
                 //Vavle 2 is on
                 if(OperationsNumber == 1) {
-                    database.child(DEVICEID).child("motor").child("Valve2").setValue("ON")
+                    database.child(DEVICEIDS).child("motor").child("Valve2").setValue("ON")
                 } else if(OperationsNumber == 2 && OperationsNumber == 3){
                     val toast =
                         Toast.makeText(activity, "You didn't choose any operation!", Toast.LENGTH_SHORT)
@@ -172,7 +176,7 @@ class Foperation : Fragment(), View.OnClickListener {
             else{
                 //Valve 2 is off
                 if(OperationsNumber == 1) {
-                    database.child(DEVICEID).child("motor").child("Valve2").setValue("OFF")
+                    database.child(DEVICEIDS).child("motor").child("Valve2").setValue("OFF")
                 } else  if(OperationsNumber == 2 && OperationsNumber == 3){
                     val toast =
                         Toast.makeText(activity, "You didn't choose any operation!", Toast.LENGTH_SHORT)
@@ -217,8 +221,8 @@ class Foperation : Fragment(), View.OnClickListener {
             AlarmManager.INTERVAL_DAY,
             alarmIntent
         )
-        database.child(DEVICEID).child("operation").child("clockhour").setValue(time1[0])
-        database.child(DEVICEID).child("operation").child("clockmin").setValue(time1[1])
+        database.child(DEVICEIDS).child("operation").child("clockhour").setValue(time1[0])
+        database.child(DEVICEIDS).child("operation").child("clockmin").setValue(time1[1])
         Log.e("Alarm:", "Alarm Set")
     }
 
@@ -251,14 +255,14 @@ class Foperation : Fragment(), View.OnClickListener {
 
 
         if(mos && hum){
-            database.child(DEVICEID).child("operation").child("humiditylimit").setValue(HumidLimit)
-            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+            database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue(HumidLimit)
+            database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue(MoistureLimit)
         }
         else if(!mos && hum){
-            database.child(DEVICEID).child("operation").child("humiditylimit").setValue(HumidLimit)
+            database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue(HumidLimit)
         }
         else if(mos && !hum){
-            database.child(DEVICEID).child("operation").child("moisturelimit").setValue(MoistureLimit)
+            database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue(MoistureLimit)
         }
         else{
             binding.edtHumidLimit.error = "Put a value!"
@@ -281,13 +285,13 @@ class Foperation : Fragment(), View.OnClickListener {
 
     fun checkDatabaseManualopt(){
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("motor").child("Valve1").get().addOnSuccessListener {
+        database.child(DEVICEIDS).child("motor").child("Valve1").get().addOnSuccessListener {
             binding.toggleValve1.isChecked = it.value == "ON"
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }
 
-        database.child(DEVICEID).child("motor").child("Valve2").get().addOnSuccessListener {
+        database.child(DEVICEIDS).child("motor").child("Valve2").get().addOnSuccessListener {
             binding.toggleValve2.isChecked = it.value == "ON"
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
@@ -297,7 +301,7 @@ class Foperation : Fragment(), View.OnClickListener {
 
     fun checkDatabaseOpt(){
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("operation").child("number").addValueEventListener(object : ValueEventListener{
+        database.child(DEVICEIDS).child("operation").child("number").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.e("Value",snapshot.value.toString())
                 when (snapshot.value.toString()) {
@@ -343,7 +347,7 @@ class Foperation : Fragment(), View.OnClickListener {
 
     fun checkDatabaseOpt1(){
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("motor").child("Valve1")
+        database.child(DEVICEIDS).child("motor").child("Valve1")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     binding.toggleValve1.isChecked = snapshot.value == "ON"
@@ -356,7 +360,7 @@ class Foperation : Fragment(), View.OnClickListener {
             })
 
 
-        database.child(DEVICEID).child("motor").child("Valve2")
+        database.child(DEVICEIDS).child("motor").child("Valve2")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     binding.toggleValve2.isChecked = snapshot.value == "ON"
@@ -373,7 +377,7 @@ class Foperation : Fragment(), View.OnClickListener {
         var minutes = ""
         var hours = ""
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("operation").child("clockhour")
+        database.child(DEVICEIDS).child("operation").child("clockhour")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.e("snapshot1",snapshot.value.toString())
@@ -400,7 +404,7 @@ class Foperation : Fragment(), View.OnClickListener {
                 }
             })
 
-        database.child(DEVICEID).child("operation").child("clockmin")
+        database.child(DEVICEIDS).child("operation").child("clockmin")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.e("snapshot2",snapshot.value.toString())
@@ -436,7 +440,7 @@ class Foperation : Fragment(), View.OnClickListener {
         var humidi = true
         var moistu = true
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("operation").child("humiditylimit").addValueEventListener(object : ValueEventListener{
+        database.child(DEVICEIDS).child("operation").child("humiditylimit").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value == "101"){
                     humidi = false
@@ -461,7 +465,7 @@ class Foperation : Fragment(), View.OnClickListener {
             }
 
         })
-        database.child(DEVICEID).child("operation").child("moisturelimit").addValueEventListener(object : ValueEventListener{
+        database.child(DEVICEIDS).child("operation").child("moisturelimit").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.value == "101"){
                     moistu = false
@@ -518,8 +522,8 @@ class Foperation : Fragment(), View.OnClickListener {
                     }
                     alarmMgr?.cancel(alarmIntent)
                     Log.e("Alarm1", "Canceled")
-                    database.child(DEVICEID).child("operation").child("clockhour").setValue("None")
-                    database.child(DEVICEID).child("operation").child("clockmin").setValue("None")
+                    database.child(DEVICEIDS).child("operation").child("clockhour").setValue("None")
+                    database.child(DEVICEIDS).child("operation").child("clockmin").setValue("None")
                     binding.setBtnValve1.text = "SET"
                     binding.pickBtnVavle1.isEnabled = true
                 }
@@ -560,8 +564,8 @@ class Foperation : Fragment(), View.OnClickListener {
                 }
                 else{
                     binding.setBtnSensor.text = "SET"
-                    database.child(DEVICEID).child("operation").child("moisturelimit").setValue("101")
-                    database.child(DEVICEID).child("operation").child("humiditylimit").setValue("101")
+                    database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue("101")
+                    database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue("101")
                     binding.edtHumidLimit.isEnabled = true
                     binding.edtMoistureLimit.isEnabled = true
                 }

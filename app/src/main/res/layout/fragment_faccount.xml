@@ -39,7 +39,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="272dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/transparent_background"
@@ -52,7 +52,7 @@
                 android:id="@+id/imageView13"
                 android:layout_width="0dp"
                 android:layout_height="272dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/transparent_background"
@@ -142,7 +142,7 @@
             <View
                 android:id="@+id/views"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView13" />
@@ -159,7 +159,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/oldPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -172,7 +172,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <EditText
-                android:id="@+id/editTextTextPassword2"
+                android:id="@+id/newPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -180,21 +180,31 @@
                 android:hint="NEW PASSWORD"
                 android:textAlignment="center"
                 android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+                app:layout_constraintEnd_toEndOf="@+id/oldPassword"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+                app:layout_constraintStart_toStartOf="@+id/oldPassword"
+                app:layout_constraintTop_toBottomOf="@+id/oldPassword" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
+                android:id="@+id/passwordResetBtn"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="CONFIRM PASSWORD"
                 android:background="@drawable/button_round_grey"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+                app:layout_constraintEnd_toEndOf="@+id/newPassword"
+                app:layout_constraintStart_toStartOf="@+id/newPassword"
+                app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/logoutBtn"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:text="LOG OUT"
+                android:background="@drawable/button_roundcorner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/views" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

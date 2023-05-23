@@ -31,9 +31,11 @@
                 android:id="@+id/view4"
                 android:layout_width="411dp"
                 android:layout_height="20dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -381,6 +383,18 @@
                 app:layout_constraintStart_toEndOf="@+id/schedTxtValve1"
                 app:layout_constraintTop_toTopOf="@+id/schedTxtValve1"
                 app:layout_constraintVertical_bias="0.619" />
+
+            <TextView
+                android:id="@+id/currDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:text="CURRENT DEVICE: "
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

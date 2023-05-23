@@ -17,19 +17,24 @@ class Alarm1: BroadcastReceiver(){
 
 
     override fun onReceive(p0: Context?, p1: Intent?) {
+        val sharedPreferences = p0?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
+        val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
+        val timedelay = sharedPreferences?.getString(TimeDelay1,"30")
+        val timers = (timedelay?.toLong())?.times(1000)!!
+        Log.e("Timedelay", timers.toString())
         database = FirebaseDatabase.getInstance().getReference("device")
-        database.child(DEVICEID).child("motor").child("Valve1").setValue("ON")
-        database.child(DEVICEID).child("motor").child("Valve2").setValue("ON")
+        database.child(deviceID.toString()).child("motor").child("Valve1").setValue("ON")
+        database.child(deviceID.toString()).child("motor").child("Valve2").setValue("ON")
         Log.e("Alarm","Fired1")
-        val timer = object: CountDownTimer(TimeDelay1.toLong()*1000, 1000) {
+        val timer = object: CountDownTimer((timedelay?.toLong())?.times(1000)!!, 1000) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
 
             override fun onFinish() {
 
-                database.child(DEVICEID).child("motor").child("Valve2").setValue("OFF")
-                database.child(DEVICEID).child("motor").child("Valve1").setValue("OFF")
+                database.child(deviceID.toString()).child("motor").child("Valve2").setValue("OFF")
+                database.child(deviceID.toString()).child("motor").child("Valve1").setValue("OFF")
                 Log.e("Motor", "OFF")
             }
         }

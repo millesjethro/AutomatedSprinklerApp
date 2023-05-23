@@ -1,5 +1,5 @@
 package com.example.thesisapp.Constant
 
 
-const val DEVICEID = "003176"
-const val TimeDelay1 = 5
+const val DEVICEID = "KEY_DEVICEID"
+const val TimeDelay1 = "KEY_TIMEDELAY"
