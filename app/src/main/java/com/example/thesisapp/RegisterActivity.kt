@@ -61,7 +61,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                         if (task.isSuccessful) {
                             // Sign in success
                             Log.d(TAG, "createUserWithEmail:success")
-                            val intent = Intent(this, LoginActivity::class.java)
+                            val toast = Toast.makeText(applicationContext,"Successfully Register", Toast.LENGTH_SHORT)
+                            toast.show()
+
+                            val intent = Intent(this, UserInfo::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails

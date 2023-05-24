@@ -31,11 +31,11 @@
                 android:id="@+id/view4"
                 android:layout_width="411dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
+                app:layout_constraintTop_toBottomOf="@+id/temperatureTxt" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -181,13 +181,13 @@
                 android:id="@+id/toggleValve1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="35dp"
                 android:checked="false"
                 android:text="Valve 1 "
                 android:thumb="@drawable/switch_thumb_selector"
                 android:track="@drawable/switch_track_selector"
                 app:layout_constraintEnd_toEndOf="@+id/textView14"
-                app:layout_constraintHorizontal_bias="0.275"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -208,13 +208,13 @@
                 android:id="@+id/schedTxtValve1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="50dp"
                 android:text="PICK TIME"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView31"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView31"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
             <Switch
@@ -249,9 +249,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:ems="10"
-                android:text=""
                 android:hint="Humidity: example(100%)"
                 android:inputType="textPersonName"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="@+id/textView24"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
@@ -263,16 +263,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:ems="10"
-                android:text=""
                 android:hint="Moisture: example(100%)"
                 android:inputType="textPersonName"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="@+id/textView24"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
                 app:layout_constraintTop_toBottomOf="@+id/edtHumidLimit" />
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/HcurrLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CURRENT: 100%"
@@ -283,7 +283,7 @@
                 app:layout_constraintTop_toTopOf="@+id/edtHumidLimit" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/McurrLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CURRENT: 100%"
@@ -318,12 +318,12 @@
                 android:id="@+id/humidityTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="HUMIDITY: 100%"
-                app:layout_constraintEnd_toEndOf="@+id/manualOverride"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/manualOverride" />
+                app:layout_constraintEnd_toStartOf="@+id/temperatureTxt"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/moistureTxt"
@@ -331,32 +331,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="MOISTURE: 100%"
-                app:layout_constraintEnd_toEndOf="@+id/manualOverride"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/humidityTxt" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/temperatureTxt"
+                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/temperatureTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="40dp"
                 android:text="TEMPERATURE: 100 C"
-                app:layout_constraintEnd_toEndOf="@+id/manualOverride"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/moistureTxt" />
+                app:layout_constraintEnd_toEndOf="@+id/currDevice"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/currDevice"
+                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="24dp"
                 android:text="VALVE 1: "
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
-                app:layout_constraintHorizontal_bias="0.164"
+                app:layout_constraintHorizontal_bias="0.788"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -389,8 +389,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
                 android:text="CURRENT DEVICE: "
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView6"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="@+id/textView6"

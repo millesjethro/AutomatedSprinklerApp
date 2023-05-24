@@ -38,7 +38,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
-                android:layout_height="272dp"
+                android:layout_height="222dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/txtvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -97,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/txtvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -105,10 +105,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/txtvName" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/txtvAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -116,28 +116,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                app:layout_constraintTop_toBottomOf="@+id/txtvEmail" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/txtvBday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="USERNAME: "
+                android:text="Birthday: "
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="STATUS: "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                app:layout_constraintTop_toBottomOf="@+id/txtvAge" />
 
             <View
                 android:id="@+id/views"
@@ -146,6 +136,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+            <View
+                android:id="@+id/views2"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoutBtn" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -200,8 +199,9 @@
                 android:id="@+id/logoutBtn"
                 android:layout_width="125dp"
                 android:layout_height="50dp"
-                android:text="LOG OUT"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/button_roundcorner"
+                android:text="LOG OUT"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/views" />

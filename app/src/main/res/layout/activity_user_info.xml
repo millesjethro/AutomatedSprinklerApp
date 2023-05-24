@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".UserInfo">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="USER INFORMATION"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/txtFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:hint="FULL NAME"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView11"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <EditText
+                android:id="@+id/txtHouseNum"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="HOUSE #"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtFullName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtFullName"
+                app:layout_constraintTop_toBottomOf="@+id/txtFullName" />
+
+            <EditText
+                android:id="@+id/txtStreet"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="STREET NAME"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtHouseNum"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtHouseNum"
+                app:layout_constraintTop_toBottomOf="@+id/txtHouseNum" />
+
+            <EditText
+                android:id="@+id/txtCity"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="CITY"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtStreet"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtStreet"
+                app:layout_constraintTop_toBottomOf="@+id/txtStreet" />
+
+            <EditText
+                android:id="@+id/txtProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="PROVINCE"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtCity"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/txtCity"
+                app:layout_constraintTop_toBottomOf="@+id/txtCity" />
+
+            <EditText
+                android:id="@+id/txtDeviceID"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="DEVICE ID"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/bdayPicker"
+                app:layout_constraintStart_toStartOf="@+id/bdayPicker"
+                app:layout_constraintTop_toBottomOf="@+id/bdayPicker" />
+
+            <EditText
+                android:id="@+id/txtDevicePass"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/plaintxtview_bg"
+                android:ems="10"
+                android:hint="DEVICE PASSWORD"
+                android:inputType="textPassword"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtDeviceID"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtDeviceID"
+                app:layout_constraintTop_toBottomOf="@+id/txtDeviceID" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bdayPicker"
+                android:layout_width="273dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_roundcorner_bluew"
+                android:text="BIRTHDAY PICKER"
+                app:layout_constraintEnd_toEndOf="@+id/txtProvince"
+                app:layout_constraintStart_toStartOf="@+id/txtProvince"
+                app:layout_constraintTop_toBottomOf="@+id/txtProvince" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_roundcorner"
+                android:text="SAVE"
+                app:layout_constraintEnd_toEndOf="@+id/txtDevicePass"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="@+id/txtDevicePass"
+                app:layout_constraintTop_toBottomOf="@+id/txtDevicePass" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

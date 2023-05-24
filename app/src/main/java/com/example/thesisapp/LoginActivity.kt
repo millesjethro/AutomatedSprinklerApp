@@ -14,22 +14,35 @@ import com.example.thesisapp.databinding.ActivityLoginBinding
 import com.example.thesisapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auths: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        database = FirebaseDatabase.getInstance().getReference("users")
+
         auths = Firebase.auth
         val currentUser = auths.currentUser
         if (currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            database.child(auths.currentUser?.uid.toString()).child("Name").get().addOnSuccessListener {
+                if(it.value.toString() == ""){
+                    val intent = Intent(this, UserInfo::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
 
         binding.LoginBtn.setOnClickListener(this)
@@ -49,6 +62,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         when(p0!!.id){
             (R.id.LoginBtn)->{
+                var UserExist = false
                 if(email.isNullOrEmpty() || password.isNullOrEmpty()){
                     Toast.makeText(applicationContext, "Either Password or Email is Empty", Toast.LENGTH_LONG)
                 }
@@ -59,9 +73,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success")
                                 val user = auths.currentUser
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-
+                                database.child(user?.uid.toString()).child("Name").get().addOnSuccessListener {
+                                    if(it.value.toString() == ""){
+                                        val intent = Intent(this, UserInfo::class.java)
+                                        startActivity(intent)
+                                    }
+                                    else{
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        startActivity(intent)
+                                    }
+                                }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.exception)
