@@ -1,6 +1,7 @@
 package com.example.thesisapp
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,9 @@ import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.thesisapp.Constant.CURRENT_EMAIL
+import com.example.thesisapp.Constant.CURRENT_PASSWORD
+import com.example.thesisapp.Constant.TimeDelay1
 import com.example.thesisapp.databinding.ActivityLoginBinding
 import com.example.thesisapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -28,8 +32,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        val sharedPreferences = this.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         database = FirebaseDatabase.getInstance().getReference("users")
-
         auths = Firebase.auth
         val currentUser = auths.currentUser
         if (currentUser != null) {
@@ -44,10 +48,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
         binding.LoginBtn.setOnClickListener(this)
         binding.RegisBtn.setOnClickListener(this)
-
+        binding.fpass.setOnClickListener(this)
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         window.decorView.setOnApplyWindowInsetsListener { view, windowInsets ->
@@ -57,12 +60,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+        val sharedPreferences = this.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val email = binding.EmailLogTxt.text.toString()
         val password = binding.passLogTxt.text.toString()
 
         when(p0!!.id){
             (R.id.LoginBtn)->{
                 var UserExist = false
+
                 if(email.isNullOrEmpty() || password.isNullOrEmpty()){
                     Toast.makeText(applicationContext, "Either Password or Email is Empty", Toast.LENGTH_LONG)
                 }
@@ -75,10 +80,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 val user = auths.currentUser
                                 database.child(user?.uid.toString()).child("Name").get().addOnSuccessListener {
                                     if(it.value.toString() == ""){
+                                        val editor = sharedPreferences?.edit()
+                                        editor?.putString(CURRENT_PASSWORD, binding.passLogTxt.text.toString())
+                                        editor?.apply()
+
                                         val intent = Intent(this, UserInfo::class.java)
                                         startActivity(intent)
                                     }
                                     else{
+                                        val editor = sharedPreferences?.edit()
+                                        editor?.putString(CURRENT_EMAIL, binding.EmailLogTxt.text.toString())
+                                        editor?.putString(CURRENT_PASSWORD, binding.passLogTxt.text.toString())
+                                        editor?.apply()
+
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
                                     }
@@ -97,6 +111,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             (R.id.RegisBtn)->{
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
+            }
+            (R.id.fpass)->{
+                if(binding.EmailLogTxt.text.toString().isNullOrEmpty()){
+                    binding.EmailLogTxt.error = "Please put an Email"
+                }
+                else {
+                    Firebase.auth.sendPasswordResetEmail(binding.EmailLogTxt.text.toString())
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "Email sent.")
+                            }
+                        }
+                }
             }
         }
     }

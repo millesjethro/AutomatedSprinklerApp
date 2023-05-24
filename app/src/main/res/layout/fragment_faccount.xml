@@ -190,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="CONFIRM PASSWORD"
-                android:background="@drawable/button_round_grey"
+                android:background="@drawable/button_roundcorner_bluew"
                 app:layout_constraintEnd_toEndOf="@+id/newPassword"
                 app:layout_constraintStart_toStartOf="@+id/newPassword"
                 app:layout_constraintTop_toBottomOf="@+id/newPassword" />

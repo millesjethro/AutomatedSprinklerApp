@@ -1,6 +1,7 @@
 package com.example.thesisapp
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.thesisapp.Constant.CURRENT_EMAIL
+import com.example.thesisapp.Constant.CURRENT_PASSWORD
 import com.example.thesisapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -52,6 +55,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+        val sharedPreferences = this.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val email = binding.emailRegTxt.text.toString()
         val password = binding.passRegTxt.text.toString()
         when(p0!!.id){
@@ -63,6 +67,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                             Log.d(TAG, "createUserWithEmail:success")
                             val toast = Toast.makeText(applicationContext,"Successfully Register", Toast.LENGTH_SHORT)
                             toast.show()
+
+                            val editor = sharedPreferences?.edit()
+                            editor?.putString(CURRENT_PASSWORD, binding.confPassRegTxt.text.toString())
+                            editor?.putString(CURRENT_EMAIL, binding.emailRegTxt.text.toString())
+                            editor?.apply()
 
                             val intent = Intent(this, UserInfo::class.java)
                             startActivity(intent)

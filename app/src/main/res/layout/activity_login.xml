@@ -58,10 +58,11 @@
         android:id="@+id/LoginBtn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="LOG IN"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_roundcorner"
+        android:text="LOG IN"
         app:layout_constraintEnd_toEndOf="@+id/passLog_txt"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/passLog_txt"
         app:layout_constraintTop_toBottomOf="@+id/passLog_txt" />
 
@@ -75,6 +76,18 @@
         app:layout_constraintEnd_toEndOf="@+id/LoginBtn"
         app:layout_constraintStart_toStartOf="@+id/LoginBtn"
         app:layout_constraintTop_toBottomOf="@+id/LoginBtn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fpass"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_round_grey"
+        android:text="FORGOT PASSOWRD"
+        app:layout_constraintEnd_toEndOf="@+id/RegisBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/RegisBtn"
+        app:layout_constraintTop_toBottomOf="@+id/RegisBtn" />
 
     <ImageView
         android:id="@+id/imageView15"
