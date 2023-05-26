@@ -36,30 +36,27 @@
                 android:id="@+id/view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="116dp"
                 android:src="@drawable/day_time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5
-"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/view2"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="48dp"
+                android:layout_marginEnd="20dp"
                 android:src="@drawable/day_time"
                 app:layout_constraintEnd_toStartOf="@+id/view"
                 app:layout_constraintTop_toTopOf="@+id/view" />
 
             <ImageView
                 android:id="@+id/view3"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/day_time"
                 app:layout_constraintStart_toEndOf="@+id/view"
                 app:layout_constraintTop_toTopOf="@+id/view" />
@@ -67,13 +64,119 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="384dp"
-                android:layout_height="212dp"
-                android:layout_marginTop="88dp"
+                android:layout_height="340dp"
+                android:layout_marginTop="25dp"
                 android:src="@drawable/transparent_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.481"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/status_cover"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.85" />
+
+            <TextView
+                android:id="@+id/textView123"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="HUMIDITY 2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView15"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+
+            <TextView
+                android:id="@+id/textHumid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+                app:layout_constraintEnd_toEndOf="@+id/imageView15"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
+                app:layout_constraintTop_toTopOf="@+id/imageView15"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/status_cover"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.85" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="TEMPERATURE 2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+            <TextView
+                android:id="@+id/textTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100 C°"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toTopOf="@+id/imageView18" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/status_cover"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintVertical_bias="0.85" />
+
+            <TextView
+                android:id="@+id/textView101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="MOISTURE 2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView17"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView17"
+                app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+            <TextView
+                android:id="@+id/textMoist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+                app:layout_constraintEnd_toEndOf="@+id/imageView17"
+                app:layout_constraintStart_toStartOf="@+id/imageView17"
+                app:layout_constraintTop_toTopOf="@+id/imageView17" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -102,30 +205,6 @@
                 app:layout_constraintVertical_bias="0.90" />
 
             <TextView
-                android:id="@+id/DayYes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tuesday"
-                app:layout_constraintBottom_toBottomOf="@+id/view2"
-                app:layout_constraintEnd_toEndOf="@+id/view2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/view2"
-                app:layout_constraintTop_toTopOf="@+id/view2"
-                app:layout_constraintVertical_bias="0.90" />
-
-            <TextView
-                android:id="@+id/DayTom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thursday"
-                app:layout_constraintBottom_toBottomOf="@+id/view3"
-                app:layout_constraintEnd_toEndOf="@+id/view3"
-                app:layout_constraintStart_toStartOf="@+id/view3"
-                app:layout_constraintTop_toTopOf="@+id/view3"
-                app:layout_constraintVertical_bias="0.95"
-                />
-
-            <TextView
                 android:id="@+id/NumberNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,7 +226,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="@+id/view3"
                 app:layout_constraintTop_toTopOf="@+id/view3"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintVertical_bias="0.5" />
 
             <TextView
                 android:id="@+id/NumberYes"
@@ -160,43 +239,43 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/view2"
                 app:layout_constraintTop_toTopOf="@+id/view2"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="94dp"
-                android:layout_height="92dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/status_cover"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.082"
+                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
-                app:layout_constraintVertical_bias="0.658" />
+                app:layout_constraintVertical_bias="0.30" />
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="94dp"
-                android:layout_height="92dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/status_cover"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.51"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
-                app:layout_constraintVertical_bias="0.658" />
+                app:layout_constraintVertical_bias="0.30" />
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="94dp"
-                android:layout_height="92dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/status_cover"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.958"
+                app:layout_constraintHorizontal_bias="0.90"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
-                app:layout_constraintVertical_bias="0.658" />
+                app:layout_constraintVertical_bias="0.30" />
 
             <TextView
                 android:id="@+id/textView7"

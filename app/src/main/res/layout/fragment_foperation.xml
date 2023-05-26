@@ -212,10 +212,10 @@
                 android:text="PICK TIME"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView31"
+                app:layout_constraintEnd_toEndOf="@+id/valve2Opt2"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                app:layout_constraintTop_toBottomOf="@+id/valve2Opt2" />
 
             <Switch
                 android:id="@+id/sensorOverride"
@@ -234,64 +234,43 @@
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="LIMITS"
+                android:layout_marginTop="24dp"
+                android:text="MINIMUM LIMITS"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/textView24"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
             <EditText
                 android:id="@+id/edtHumidLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="Humidity: example(100%)"
+                android:hint="Humidity: example(30%)"
                 android:inputType="textPersonName"
                 android:text=""
-                app:layout_constraintEnd_toEndOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="@+id/imageView11"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintStart_toStartOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
             <EditText
                 android:id="@+id/edtMoistureLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="Moisture: example(100%)"
+                android:hint="Moisture: example(10%)"
                 android:inputType="textPersonName"
                 android:text=""
-                app:layout_constraintEnd_toEndOf="@+id/textView24"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/edtHumidLimit" />
-
-            <TextView
-                android:id="@+id/HcurrLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CURRENT: 100%"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/edtHumidLimit"
-                app:layout_constraintEnd_toEndOf="@+id/imageView11"
-                app:layout_constraintStart_toEndOf="@+id/edtHumidLimit"
-                app:layout_constraintTop_toTopOf="@+id/edtHumidLimit" />
-
-            <TextView
-                android:id="@+id/McurrLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CURRENT: 100%"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/edtMoistureLimit"
-                app:layout_constraintEnd_toEndOf="@+id/imageView11"
-                app:layout_constraintStart_toEndOf="@+id/edtMoistureLimit"
-                app:layout_constraintTop_toTopOf="@+id/edtMoistureLimit" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/setBtnValve1"
@@ -308,7 +287,7 @@
                 android:id="@+id/setBtn_sensor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="SET"
                 app:layout_constraintEnd_toEndOf="@+id/edtMoistureLimit"
                 app:layout_constraintStart_toStartOf="@+id/edtMoistureLimit"
@@ -340,15 +319,14 @@
                 android:id="@+id/temperatureTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="44dp"
                 android:text="TEMPERATURE: 100 C"
                 app:layout_constraintEnd_toEndOf="@+id/currDevice"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/currDevice"
                 app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/valve1Opt2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -361,17 +339,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/valve2Opt2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="VALVE 2: "
                 android:textColor="@color/black"
                 android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView30"
+                app:layout_constraintEnd_toEndOf="@+id/valve1Opt2"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView30"
-                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                app:layout_constraintStart_toStartOf="@+id/valve1Opt2"
+                app:layout_constraintTop_toBottomOf="@+id/valve1Opt2" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/pickBtnVavle1"

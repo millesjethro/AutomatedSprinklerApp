@@ -11,7 +11,6 @@ import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFhomeBinding
 import com.google.firebase.database.*
-import java.time.LocalDateTime
 import java.util.*
 
 class Fhome : Fragment() {
@@ -39,58 +38,52 @@ class Fhome : Fragment() {
     fun dateToday(){
         val c = Calendar.getInstance()
         val today = c.get(Calendar.DAY_OF_MONTH)
-        val yesterday = c.get(Calendar.DAY_OF_MONTH)-1
-        val tomorrow = c.get(Calendar.DAY_OF_MONTH)+1
+        val month = c.get(Calendar.MONTH)+1
+        val year = c.get(Calendar.YEAR)
         val x = c.get(Calendar.DAY_OF_WEEK)-1
+        var month1 = ""
         Log.e("Week",x.toString())
-        val date = arrayOf("","","")
-
-        when (x) {
-            1 -> {
-                date[0] = "Sunday"
-                date[1] = "Monday"
-                date[2] = "Tuesday"
+        when(month){
+            1->{
+                month1 = "January"
             }
-            2 -> {
-                date[0] = "Monday"
-                date[1] = "Tuesday"
-                date[2] = "Wednesday"
+            2->{
+                month1 = "February"
             }
-            3 -> {
-                date[0] = "Tuesday"
-                date[1] = "Wednesday"
-                date[2] = "Thursday"
+            3->{
+                month1 = "March"
             }
-            4 -> {
-                date[0] = "Wednesday"
-                date[1] = "Thursday"
-                date[2] = "Friday"
+            4->{
+                month1 = "April"
             }
-            5 -> {
-                date[0] = "Thursday"
-                date[1] = "Friday"
-                date[2] = "Saturday"
+            5->{
+                month1 = "May"
             }
-            6 -> {
-                date[0] = "Friday"
-                date[1] = "Saturday"
-                date[2] = "Sunday"
+            6->{
+                month1 = "June"
             }
-            7 -> {
-                date[0] = "Saturday"
-                date[1] = "Sunday"
-                date[2] = "Monday"
+            7->{
+                month1 = "July"
+            }
+            8->{
+                month1 = "August"
+            }
+            9->{
+                month1 = "September"
+            }
+            10->{
+                month1 = "October"
+            }
+            11->{
+                month1 = "November"
+            }
+            12->{
+                month1 = "December"
             }
         }
-
-        binding.NumberYes.text = yesterday.toString()
+        binding.NumberYes.text = month1
         binding.NumberNow.text = today.toString()
-        binding.NumberTom.text = tomorrow.toString()
-
-
-        binding.DayYes.text = date[0]
-        binding.DayNow.text = date[1]
-        binding.DayTom.text = date[2]
+        binding.NumberTom.text = year.toString()
     }
     fun bgChanges(){
         val c = Calendar.getInstance()
@@ -155,6 +148,35 @@ class Fhome : Fragment() {
         database.child(DEVICEIDS).child("sensors").child("temperature").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.txtTemp.text = snapshot.value.toString()+" C°"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+        database.child(DEVICEIDS).child("sensors").child("humidity1").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.textHumid.text = snapshot.value.toString()+"%"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+        database.child(DEVICEIDS).child("sensors").child("moisture1").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.textMoist.text = snapshot.value.toString()+"%"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+        database.child(DEVICEIDS).child("sensors").child("temperature1").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.textTemp.text = snapshot.value.toString()+" C°"
             }
 
             override fun onCancelled(error: DatabaseError) {

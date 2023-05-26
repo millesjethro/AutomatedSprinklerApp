@@ -298,7 +298,6 @@ class Foperation : Fragment(), View.OnClickListener {
         }
     }
 
-
     fun checkDatabaseOpt(){
         database = FirebaseDatabase.getInstance().getReference("device")
         database.child(DEVICEIDS).child("operation").child("number").addValueEventListener(object : ValueEventListener{
@@ -374,6 +373,31 @@ class Foperation : Fragment(), View.OnClickListener {
     }
 
     fun checkDatabaseOpt2(){
+        database.child(DEVICEIDS).child("motor").child("Valve1")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.valve1Opt2.text = "Valve1: "+snapshot.value
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
+
+        database.child(DEVICEIDS).child("motor").child("Valve2")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.valve2Opt2.text = "Valve2: "+snapshot.value
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
         var minutes = ""
         var hours = ""
         database = FirebaseDatabase.getInstance().getReference("device")
@@ -596,26 +620,6 @@ class Foperation : Fragment(), View.OnClickListener {
         database.child(DEVICEIDS).child("sensors").child("temperature").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.temperatureTxt.text = "MOISTURE: "+snapshot.value+"C"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-        database.child(DEVICEIDS).child("operation").child("humiditylimit").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.HcurrLimit.text = "Humidity Limit: "+snapshot.value+"%"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-        database.child(DEVICEIDS).child("operation").child("moisturelimit").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.McurrLimit.text = "Moisture Limit: "+snapshot.value+"%"
             }
 
             override fun onCancelled(error: DatabaseError) {
