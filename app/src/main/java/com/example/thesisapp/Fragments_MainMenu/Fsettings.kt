@@ -9,13 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.thesisapp.Constant.DEVICEID
-import com.example.thesisapp.Constant.TimeDelay1
 import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFsettingsBinding
+import com.google.firebase.database.DatabaseReference
 
 
 class Fsettings : Fragment(),View.OnClickListener {
-
+    private lateinit var database: DatabaseReference
     private lateinit var binding: FragmentFsettingsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +26,6 @@ class Fsettings : Fragment(),View.OnClickListener {
         val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
         binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
-        val currSecs = sharedPreferences?.getString(TimeDelay1,"NO TIME")
-        binding.txtCurrSecs.text = "CURRENT SECONDS: $currSecs"
         binding.saveBtnId.setOnClickListener(this)
         binding.saveBtnSecs.setOnClickListener(this)
         return binding.root
@@ -49,17 +47,8 @@ class Fsettings : Fragment(),View.OnClickListener {
                 }
             }
             (R.id.saveBtnSecs)->{
-                if(binding.valveOnSeconds.text.toString().toInt() <= 10){
-                    binding.valveOnSeconds.error = "The input was to low"
-                }
-                else {
-                    val editor = sharedPreferences?.edit()
-                    editor?.putString(TimeDelay1, binding.valveOnSeconds.text.toString())
-                    editor?.apply()
-
-                    val currSecs = sharedPreferences?.getString(TimeDelay1, "NO TIME")
-                    binding.txtCurrSecs.text = "CURRENT SECONDS: $currSecs"
-                }
+                val deviceID = sharedPreferences?.getString(DEVICEID, "NO ID")
+                database.child(deviceID.toString()).child("operation").child("timedelay").setValue(binding.valveOnSeconds.text.toString().toInt())
             }
         }
     }

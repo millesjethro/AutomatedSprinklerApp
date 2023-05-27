@@ -83,7 +83,7 @@ class UserInfo : AppCompatActivity(),View.OnClickListener {
                 val datePickerDialog = DatePickerDialog(
                     // on below line we are passing context.
                     this,
-                    { view, year, monthOfYear, dayOfMonth ->
+                    { _, year, monthOfYear, dayOfMonth ->
                         // on below line we are setting
                         // date to our text view.
                         binding.bdayPicker.text =

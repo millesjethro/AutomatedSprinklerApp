@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.thesisapp.Constant.CURRENT_EMAIL
 import com.example.thesisapp.Constant.CURRENT_PASSWORD
-import com.example.thesisapp.Constant.TimeDelay1
 import com.example.thesisapp.databinding.ActivityLoginBinding
 import com.example.thesisapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -32,7 +31,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        val sharedPreferences = this.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         database = FirebaseDatabase.getInstance().getReference("users")
         auths = Firebase.auth
         val currentUser = auths.currentUser
@@ -66,8 +64,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         when(p0!!.id){
             (R.id.LoginBtn)->{
-                var UserExist = false
-
                 if(email.isNullOrEmpty() || password.isNullOrEmpty()){
                     Toast.makeText(applicationContext, "Either Password or Email is Empty", Toast.LENGTH_LONG)
                 }

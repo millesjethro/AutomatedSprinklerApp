@@ -1,12 +1,8 @@
 package com.example.thesisapp.Fragments_MainMenu
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.R
-import com.example.thesisapp.Reciever.Alarm1
 import com.example.thesisapp.databinding.FragmentFoperationBinding
 import com.google.firebase.database.*
 import java.util.*
@@ -25,8 +20,6 @@ class Foperation : Fragment(), View.OnClickListener {
     private lateinit var database: DatabaseReference
     private lateinit var binding: FragmentFoperationBinding
     private var OperationsNumber = 0
-    private var alarmMgr: AlarmManager? = null
-    private lateinit var alarmIntent: PendingIntent
     private var HumidLimit = ""
     private var MoistureLimit = ""
     private var DEVICEIDS = ""
@@ -102,11 +95,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.manualOverride.text = "Disabled "
             binding.sensorOverride.text = "Disabled "
 
-            database.child(DEVICEIDS).child("motor").child("Valve1").setValue("OFF")
-            database.child(DEVICEIDS).child("motor").child("Valve2").setValue("OFF")
-
-            database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue("101")
-            database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue("101")
+            SetEvrythingToNone()
 
             if(binding.setBtnSensor.text == "STOP"){
                 binding.setBtnSensor.text == "SET"
@@ -118,9 +107,6 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.toggleValve2.isChecked = false
 
             DisabledAll()
-
-            alarmMgr?.cancel(alarmIntent)
-            Log.e("Alarm1", "Canceled")
 
 
             binding.manualOverride.isEnabled = true
@@ -189,43 +175,10 @@ class Foperation : Fragment(), View.OnClickListener {
     }
 
     fun autoOver1() {
-        val time1 = binding.schedTxtValve1.text.toString().split(":")
-
-        if(time1[0].toInt()>=13){
-            val timers1 = time1[0].toInt() - 12
-            val timers2 = time1[1].toInt()
-            binding.schedTxtValve1.text = ("$timers1:$timers2 PM")
-        }
-        else if(time1[1].toInt()<=9){
-            binding.schedTxtValve1.text = time1[0]+":0"+time1[1]+" AM"
-        }
-        else{
-            binding.schedTxtValve1.text = time1[0]+":"+time1[1]+" AM"
-        }
-
-        alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmIntent = Intent(context, Alarm1::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        }
-        val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, time1[0].toInt())
-            set(Calendar.MINUTE, time1[1].toInt())
-        }
-
-        // With setInexactRepeating(), you have to use one of the AlarmManager interval
-        // constants--in this case, AlarmManager.INTERVAL_DAY.
-        alarmMgr?.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            alarmIntent
-        )
-        database.child(DEVICEIDS).child("operation").child("clockhour").setValue(time1[0])
-        database.child(DEVICEIDS).child("operation").child("clockmin").setValue(time1[1])
-        Log.e("Alarm:", "Alarm Set")
+        val a = binding.schedTxtValve1.text.toString().split(":")
+        database.child(DEVICEIDS).child("operation").child("clockhour").setValue(a[0])
+        database.child(DEVICEIDS).child("operation").child("clockmin").setValue(a[1])
     }
-
     fun sensorOver(){
         HumidLimit = binding.edtHumidLimit.text.toString()
         MoistureLimit = binding.edtMoistureLimit.text.toString()
@@ -401,25 +354,17 @@ class Foperation : Fragment(), View.OnClickListener {
         var minutes = ""
         var hours = ""
         database = FirebaseDatabase.getInstance().getReference("device")
+
         database.child(DEVICEIDS).child("operation").child("clockhour")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.e("snapshot1",snapshot.value.toString())
-                    if (snapshot.value.toString() == "None") {
+                    if (snapshot.value.toString() == "26") {
                         binding.schedTxtValve1.text = "PICK TIME"
                         binding.setBtnValve1.text = "SET"
                         binding.setBtnValve1.isEnabled = false
                     } else {
                         hours = snapshot.value.toString()
-                        if (minutes != "" && hours.toInt() >= 12) {
-                            val hours2 = hours.toInt() - 12
-                            binding.schedTxtValve1.text = "$hours2:$minutes PM"
-                        } else {
-                            binding.schedTxtValve1.text = "$hours:$minutes AM"
-                        }
-                        binding.setBtnValve1.isEnabled = true
-                        binding.setBtnValve1.text = "STOP"
-                        binding.pickBtnVavle1.isEnabled = false
                     }
                 }
 
@@ -432,15 +377,18 @@ class Foperation : Fragment(), View.OnClickListener {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.e("snapshot2",snapshot.value.toString())
-                    if (snapshot.value.toString() == "None") {
+                    if (snapshot.value.toString() == "62") {
                         binding.schedTxtValve1.text = "PICK TIME"
                         binding.setBtnValve1.text = "SET"
                         binding.setBtnValve1.isEnabled = false
                     } else {
                         minutes = snapshot.value.toString()
-                        if (minutes != "" && hours.toInt() >= 12) {
+                        if (!minutes.isNullOrEmpty() && hours.toInt() >= 12) {
                             val hours2 = hours.toInt() - 12
                             binding.schedTxtValve1.text = "$hours2:$minutes PM"
+                        } else if (!minutes.isNullOrEmpty() && hours.toInt() == 0) {
+                            val hours2 = hours.toInt() + 12
+                            binding.schedTxtValve1.text = "$hours2:$minutes AM"
                         } else {
                             binding.schedTxtValve1.text = "$hours:$minutes AM"
                         }
@@ -540,16 +488,10 @@ class Foperation : Fragment(), View.OnClickListener {
                     autoOver1()
                 }
                 else{
-                    alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    alarmIntent = Intent(context, Alarm1::class.java).let { intent ->
-                        PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-                    }
-                    alarmMgr?.cancel(alarmIntent)
-                    Log.e("Alarm1", "Canceled")
-                    database.child(DEVICEIDS).child("operation").child("clockhour").setValue("None")
-                    database.child(DEVICEIDS).child("operation").child("clockmin").setValue("None")
                     binding.setBtnValve1.text = "SET"
                     binding.pickBtnVavle1.isEnabled = true
+                    database.child(DEVICEIDS).child("operation").child("clockhour").setValue("26")
+                    database.child(DEVICEIDS).child("operation").child("clockmin").setValue("62")
                 }
             }
             (R.id.pickBtnVavle1)->{
@@ -626,6 +568,17 @@ class Foperation : Fragment(), View.OnClickListener {
 
             }
         })
+    }
+
+    fun SetEvrythingToNone(){
+        database.child(DEVICEIDS).child("motor").child("Valve1").setValue("OFF")
+        database.child(DEVICEIDS).child("motor").child("Valve2").setValue("OFF")
+
+        database.child(DEVICEIDS).child("operation").child("moisturelimit").setValue("101")
+        database.child(DEVICEIDS).child("operation").child("humiditylimit").setValue("101")
+
+        database.child(DEVICEIDS).child("operation").child("clockhour").setValue("26")
+        database.child(DEVICEIDS).child("operation").child("clockmin").setValue("62")
     }
 }
 
