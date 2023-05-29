@@ -54,52 +54,6 @@ class Faccount : Fragment(), View.OnClickListener{
         binding.logoutBtn.setOnClickListener(this)
         binding.passwordResetBtn.setOnClickListener(this)
 
-        binding.oldPassword.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(currPass == binding.oldPassword.text.toString()){
-                    binding.newPassword.isEnabled = true
-                }
-                else{
-                    binding.oldPassword.error = "Wrong old password"
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-        })
-
-        binding.newPassword.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val password = binding.newPassword.text.toString()
-                val LowerCase: Pattern = Pattern.compile("[a-z]")
-                val UpperCase: Pattern = Pattern.compile("[A-Z]")
-                val Digit: Pattern = Pattern.compile("\\d")
-                if(LowerCase.matcher(password).find() && UpperCase.matcher(password).find() && Digit.matcher(password).find() && !(password.contains(" ")) && password.length >= 8) {
-                    binding.passwordResetBtn.isEnabled = true
-                }
-                else{
-                    binding.passwordResetBtn.isEnabled = false
-                    binding.newPassword.error = "- No Spaces\n- More Than 8 Characters\n- Must have Uppercase\n- It is Alphanumeric"
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-        })
-
-
         database.child(auths.currentUser?.uid.toString()).child("Birthday").get().addOnSuccessListener {
             binding.txtvBday.text = "Birthday: "+it.value.toString()
             bday = it.value.toString()
@@ -115,8 +69,7 @@ class Faccount : Fragment(), View.OnClickListener{
             Log.e("firebase", "Error getting data", it)
         }
 
-
-
+        passChecker()
         binding.txtvEmail.text = "Email: "+auths.currentUser?.email
 
 
@@ -144,6 +97,7 @@ class Faccount : Fragment(), View.OnClickListener{
                 startActivity(intent)
             }
             (R.id.passwordResetBtn)->{
+                passChecker()
                 Log.e("PASS", txtNewPass.toString())
                 if(txtNewPass.toString() == ""){
                     binding.newPassword.error = "empty"
@@ -195,5 +149,56 @@ class Faccount : Fragment(), View.OnClickListener{
             yd--
             binding.txtvAge.text = "Age: $yd"
         }
+    }
+
+    fun passChecker(){
+
+        val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
+        val currPass = sharedPreferences?.getString(CURRENT_PASSWORD,"PASSWORD")
+
+        binding.oldPassword.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(currPass == binding.oldPassword.text.toString()){
+                    binding.newPassword.isEnabled = true
+                }
+                else{
+                    binding.oldPassword.error = "Wrong old password"
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.newPassword.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val password = binding.newPassword.text.toString()
+                val LowerCase: Pattern = Pattern.compile("[a-z]")
+                val UpperCase: Pattern = Pattern.compile("[A-Z]")
+                val Digit: Pattern = Pattern.compile("\\d")
+                if(LowerCase.matcher(password).find() && UpperCase.matcher(password).find() && Digit.matcher(password).find() && !(password.contains(" ")) && password.length >= 8) {
+                    binding.passwordResetBtn.isEnabled = true
+                }
+                else{
+                    binding.passwordResetBtn.isEnabled = false
+                    binding.newPassword.error = "- No Spaces\n- More Than 8 Characters\n- Must have Uppercase\n- It is Alphanumeric"
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
     }
 }

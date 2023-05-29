@@ -23,7 +23,7 @@
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="353dp"
-        android:layout_height="225dp"
+        android:layout_height="265dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/transparent_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:id="@+id/deviceId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="DEVICE ID"
         android:inputType="number"
@@ -42,21 +42,21 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/imageView17"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="@+id/imageView17"
         app:layout_constraintTop_toTopOf="@+id/imageView17" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtnId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:text="SAVE"
-        app:layout_constraintEnd_toEndOf="@+id/deviceId"
-        app:layout_constraintStart_toStartOf="@+id/deviceId"
-        app:layout_constraintTop_toBottomOf="@+id/deviceId" />
-
-
+        app:layout_constraintEnd_toEndOf="@+id/passDevice"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/passDevice"
+        app:layout_constraintTop_toBottomOf="@+id/passDevice" />
 
     <ImageView
         android:id="@+id/imageView18"
@@ -141,4 +141,18 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="@+id/saveBtnSecs"
         app:layout_constraintTop_toBottomOf="@+id/saveBtnSecs" />
+
+    <EditText
+        android:id="@+id/passDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="PASSWORD"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/deviceId"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/deviceId"
+        app:layout_constraintTop_toBottomOf="@+id/deviceId" />
 </androidx.constraintlayout.widget.ConstraintLayout>

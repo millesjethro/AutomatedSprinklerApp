@@ -3,6 +3,8 @@ package com.example.thesisapp.Fragments_MainMenu
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseReference
 class Fsettings : Fragment(),View.OnClickListener {
     private lateinit var database: DatabaseReference
     private lateinit var binding: FragmentFsettingsBinding
+    private var DevID = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +29,33 @@ class Fsettings : Fragment(),View.OnClickListener {
         val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
         binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
+
+
+        binding.passDevice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (binding.deviceId.text.toString().isNullOrEmpty()) {
+                    binding.deviceId.error = "This field can't be left empty"
+                } else {
+                    database.child(binding.deviceId.text.toString()).child("password").get()
+                        .addOnSuccessListener {
+                            if (binding.passDevice.text.toString() == it.value.toString()) {
+                                DevID = true
+                            } else {
+                                binding.passDevice.error = "Wrong Credentials"
+                            }
+                        }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
+
         binding.saveBtnId.setOnClickListener(this)
         binding.saveBtnSecs.setOnClickListener(this)
         return binding.root
@@ -37,7 +67,8 @@ class Fsettings : Fragment(),View.OnClickListener {
             (R.id.saveBtnId)-> {
                 if (binding.deviceId.text.toString().isEmpty()) {
                     binding.deviceId.error = "No ID was entered!"
-                } else {
+                }
+                if(DevID == true){
                     val editor = sharedPreferences?.edit()
                     editor?.putString(DEVICEID, binding.deviceId.text.toString())
                     editor?.apply()
@@ -45,10 +76,18 @@ class Fsettings : Fragment(),View.OnClickListener {
                     val deviceID = sharedPreferences?.getString(DEVICEID, "NO ID")
                     binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
                 }
+                else{
+                    binding.deviceId.error = "You have entered a wrong ID!"
+                }
             }
             (R.id.saveBtnSecs)->{
                 val deviceID = sharedPreferences?.getString(DEVICEID, "NO ID")
-                database.child(deviceID.toString()).child("operation").child("timedelay").setValue(binding.valveOnSeconds.text.toString().toInt())
+                if(deviceID != "NO ID") {
+                    database.child(deviceID.toString()).child("operation").child("timedelay")
+                        .setValue(binding.valveOnSeconds.text.toString().toInt())
+                } else {
+                    binding.valveOnSeconds.error = "There Were No ID detected!"
+                }
             }
         }
     }
