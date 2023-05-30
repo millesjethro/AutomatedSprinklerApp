@@ -35,7 +35,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/temperatureTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -292,38 +292,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/edtMoistureLimit"
                 app:layout_constraintStart_toStartOf="@+id/edtMoistureLimit"
                 app:layout_constraintTop_toBottomOf="@+id/edtMoistureLimit" />
-
-            <TextView
-                android:id="@+id/humidityTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="HUMIDITY: 100%"
-                app:layout_constraintEnd_toStartOf="@+id/temperatureTxt"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
-
-            <TextView
-                android:id="@+id/moistureTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="MOISTURE: 100%"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/temperatureTxt"
-                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
-
-            <TextView
-                android:id="@+id/temperatureTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
-                android:text="TEMPERATURE: 100 C"
-                app:layout_constraintEnd_toEndOf="@+id/currDevice"
-                app:layout_constraintStart_toStartOf="@+id/currDevice"
-                app:layout_constraintTop_toBottomOf="@+id/currDevice" />
 
             <TextView
                 android:id="@+id/valve1Opt2"

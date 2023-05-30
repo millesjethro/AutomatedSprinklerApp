@@ -40,7 +40,6 @@ class Foperation : Fragment(), View.OnClickListener {
         checkDatabaseManualopt()
         manualOver()
         DisabledAll()
-        textViewsChanges()
         binding.manualOverride.isEnabled = true
         binding.automaticOverride.isEnabled = true
         binding.sensorOverride.isEnabled = true
@@ -537,37 +536,6 @@ class Foperation : Fragment(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    fun textViewsChanges(){
-        database.child(DEVICEIDS).child("sensors").child("humidity").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.humidityTxt.text = "HUMIDITY: "+snapshot.value+"%"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-        database.child(DEVICEIDS).child("sensors").child("moisture").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.moistureTxt.text = "MOISTURE: "+snapshot.value+"%"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-        database.child(DEVICEIDS).child("sensors").child("temperature").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.temperatureTxt.text = "MOISTURE: "+snapshot.value+"C"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
     }
 
     fun SetEvrythingToNone(){
