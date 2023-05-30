@@ -14,6 +14,7 @@ import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFsettingsBinding
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class Fsettings : Fragment(),View.OnClickListener {
@@ -29,7 +30,7 @@ class Fsettings : Fragment(),View.OnClickListener {
         val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
         binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
-
+        database = FirebaseDatabase.getInstance().getReference("device")
 
         binding.passDevice.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
