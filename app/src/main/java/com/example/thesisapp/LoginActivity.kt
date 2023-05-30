@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auths: FirebaseAuth
     private lateinit var database: DatabaseReference
-
+    private lateinit var databaseU: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.hide()
         database = FirebaseDatabase.getInstance().getReference("users")
         auths = Firebase.auth
+        databaseU = FirebaseDatabase.getInstance().getReference("users")
         val currentUser = auths.currentUser
         if (currentUser != null) {
             database.child(auths.currentUser?.uid.toString()).child("Name").get().addOnSuccessListener {

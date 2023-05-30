@@ -13,14 +13,20 @@ import androidx.fragment.app.Fragment
 import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFsettingsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 
 class Fsettings : Fragment(),View.OnClickListener {
     private lateinit var database: DatabaseReference
+    private lateinit var databaseU: DatabaseReference
     private lateinit var binding: FragmentFsettingsBinding
+    private lateinit var auths: FirebaseAuth
     private var DevID = false
+    private var USERID = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +36,11 @@ class Fsettings : Fragment(),View.OnClickListener {
         val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
         binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
-        database = FirebaseDatabase.getInstance().getReference("device")
+        auths = Firebase.auth
 
+        databaseU = FirebaseDatabase.getInstance().getReference("users")
+        database = FirebaseDatabase.getInstance().getReference("device")
+        USERID = auths.currentUser?.uid.toString()
         binding.passDevice.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -73,7 +82,7 @@ class Fsettings : Fragment(),View.OnClickListener {
                     val editor = sharedPreferences?.edit()
                     editor?.putString(DEVICEID, binding.deviceId.text.toString())
                     editor?.apply()
-
+                    databaseU.child(USERID).child("DeviceIDs").setValue(binding.deviceId.text.toString())
                     val deviceID = sharedPreferences?.getString(DEVICEID, "NO ID")
                     binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
                 }

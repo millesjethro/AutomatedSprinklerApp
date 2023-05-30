@@ -108,7 +108,7 @@ class UserInfo : AppCompatActivity(),View.OnClickListener {
                     databaseU.child(USERID).child("Street").setValue(binding.txtStreet.text.toString())
                     databaseU.child(USERID).child("Province").setValue(binding.txtProvince.text.toString())
                     databaseU.child(USERID).child("Birthday").setValue(binding.bdayPicker.text.toString())
-
+                    databaseU.child(USERID).child("DeviceIDs").setValue(binding.txtDeviceID.text.toString())
                     val editor = sharedPreferences?.edit()
                     editor?.putString(DEVICEID, binding.txtDeviceID.text.toString())
                     editor?.apply()
