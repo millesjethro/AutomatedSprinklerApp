@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = this.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         databaseU.child(USERID).child("DeviceIDs").get()
             .addOnSuccessListener {
-                if(it.value.toString() == ""){
+                if(it.value.toString().isNullOrEmpty()){
                     val editor = sharedPreferences?.edit()
                     editor?.putString(DEVICEID, "NO ID")
                     editor?.apply()
@@ -66,5 +66,4 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-
 }

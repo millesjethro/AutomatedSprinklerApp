@@ -11,6 +11,8 @@ import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFhomeBinding
 import com.google.firebase.database.*
+import java.lang.Math.ceil
+import java.lang.Math.round
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
@@ -129,11 +131,9 @@ class Fhome : Fragment() {
     }
 
     fun Sensors(){
-        val df = DecimalFormat("#.#")
-        df.roundingMode = RoundingMode.UP
         database.child(DEVICEIDS).child("sensors").child("humidity").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.txtHumid.text = df.format(snapshot.value).toString()+" %"
+                binding.txtHumid.text =  snapshot.value.toString()+" %"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -142,8 +142,7 @@ class Fhome : Fragment() {
         })
         database.child(DEVICEIDS).child("sensors").child("moisture").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
-                binding.txtMoist.text = df.format(snapshot.value).toString()+" %"
+                binding.txtMoist.text =   snapshot.value.toString()+" %"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -152,7 +151,7 @@ class Fhome : Fragment() {
         })
         database.child(DEVICEIDS).child("sensors").child("temperature").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.txtTemp.text = df.format(snapshot.value).toString() + " C°"
+                binding.txtTemp.text =  snapshot.value.toString()+" C°"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -163,7 +162,7 @@ class Fhome : Fragment() {
 
         database.child(DEVICEIDS).child("sensors").child("humidity1").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.textHumid.text = df.format(snapshot.value).toString()+" %"
+                binding.textHumid.text = snapshot.value.toString()+" %"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -172,7 +171,7 @@ class Fhome : Fragment() {
         })
         database.child(DEVICEIDS).child("sensors").child("moisture1").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.textMoist.text = df.format(snapshot.value).toString()+" %"
+                binding.textMoist.text =  snapshot.value.toString()+" %"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -181,7 +180,7 @@ class Fhome : Fragment() {
         })
         database.child(DEVICEIDS).child("sensors").child("temperature1").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                binding.textTemp.text = df.format(snapshot.value).toString() + " C°"
+                binding.textTemp.text = snapshot.value.toString()+" C°"
             }
 
             override fun onCancelled(error: DatabaseError) {
