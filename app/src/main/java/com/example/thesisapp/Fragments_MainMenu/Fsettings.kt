@@ -15,8 +15,7 @@ import com.example.thesisapp.R
 import com.example.thesisapp.databinding.FragmentFsettingsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 
 
@@ -27,6 +26,7 @@ class Fsettings : Fragment(),View.OnClickListener {
     private lateinit var auths: FirebaseAuth
     private var DevID = false
     private var USERID = ""
+    private var DEVICEIDS = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +35,7 @@ class Fsettings : Fragment(),View.OnClickListener {
         binding = FragmentFsettingsBinding.inflate(inflater,container,false)
         val sharedPreferences = this.activity?.getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE)
         val deviceID = sharedPreferences?.getString(DEVICEID,"NO ID")
+        DEVICEIDS = deviceID.toString()
         binding.curDevice.text = "CURRENT DEVICE ID: $deviceID"
         auths = Firebase.auth
 
@@ -65,7 +66,7 @@ class Fsettings : Fragment(),View.OnClickListener {
 
             }
         })
-
+        textChanger()
         binding.saveBtnId.setOnClickListener(this)
         binding.saveBtnSecs.setOnClickListener(this)
         return binding.root
@@ -95,10 +96,25 @@ class Fsettings : Fragment(),View.OnClickListener {
                 if(deviceID != "NO ID") {
                     database.child(deviceID.toString()).child("operation").child("timedelay")
                         .setValue(binding.valveOnSeconds.text.toString().toInt())
+                    binding.valveOnSeconds.setText("")
                 } else {
                     binding.valveOnSeconds.error = "There Were No ID detected!"
                 }
             }
         }
+    }
+
+    fun textChanger(){
+        database.child(DEVICEIDS).child("operation").child("timedelay")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.txtCurrSecs.text = "CURRENT MINUTES: "+snapshot.value
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 }

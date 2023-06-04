@@ -80,7 +80,6 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.automaticOverride.text = "Disabled "
             binding.manualOverride.text = "Disabled "
             binding.sensorOverride.text = "Enabled "
-
             DisabledAll()
             binding.edtHumidLimit.isEnabled = true
             binding.edtMoistureLimit.isEnabled = true
@@ -88,6 +87,7 @@ class Foperation : Fragment(), View.OnClickListener {
             binding.setBtnSensor.isEnabled = true
             OperationsNumber = 3
             database.child(DEVICEIDS).child("operation").child("number").setValue(OperationsNumber)
+
         }
         if(!binding.manualOverride.isChecked && !binding.automaticOverride.isChecked && !binding.sensorOverride.isChecked){
             binding.automaticOverride.text = "Disabled "
