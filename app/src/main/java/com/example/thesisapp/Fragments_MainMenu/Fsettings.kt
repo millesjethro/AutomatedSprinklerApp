@@ -108,7 +108,7 @@ class Fsettings : Fragment(),View.OnClickListener {
         database.child(DEVICEIDS).child("operation").child("timedelay")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    binding.txtCurrSecs.text = "CURRENT MINUTES: "+snapshot.value
+                    binding.txtCurrSecs.text = "CURRENT MINUTES: "+snapshot.value+" min/s"
                 }
 
                 override fun onCancelled(error: DatabaseError) {
