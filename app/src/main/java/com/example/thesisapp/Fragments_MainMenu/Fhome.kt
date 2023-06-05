@@ -46,6 +46,7 @@ class Fhome : Fragment() {
         val year = c.get(Calendar.YEAR)
         val x = c.get(Calendar.DAY_OF_WEEK)-1
         var month1 = ""
+        var dayNow = ""
         Log.e("Week",x.toString())
         when(month){
             1->{
@@ -85,6 +86,30 @@ class Fhome : Fragment() {
                 month1 = "December"
             }
         }
+        when(x){
+            1->{
+                dayNow = "Monday"
+            }
+            2->{
+                dayNow = "Tuesday"
+            }
+            3->{
+                dayNow = "Wednesday"
+            }
+            4->{
+                dayNow = "Thursday"
+            }
+            5->{
+                dayNow = "Friday"
+            }
+            6->{
+                dayNow = "Saturday"
+            }
+            7->{
+                dayNow = "Sunday"
+            }
+        }
+        binding.DayNow.text = dayNow
         binding.NumberYes.text = month1
         binding.NumberNow.text = today.toString()
         binding.NumberTom.text = year.toString()
