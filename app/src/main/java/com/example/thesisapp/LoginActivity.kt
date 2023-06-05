@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.thesisapp.Constant.CURRENT_EMAIL
 import com.example.thesisapp.Constant.CURRENT_PASSWORD
+import com.example.thesisapp.Constant.DEVICEID
 import com.example.thesisapp.databinding.ActivityLoginBinding
 import com.example.thesisapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -89,7 +90,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                         editor?.putString(CURRENT_EMAIL, binding.EmailLogTxt.text.toString())
                                         editor?.putString(CURRENT_PASSWORD, binding.passLogTxt.text.toString())
                                         editor?.apply()
-
+                                        database.child(user?.uid.toString()).child("DeviceIDs").get().addOnSuccessListener {
+                                            editor?.putString(DEVICEID, it.value.toString())
+                                            editor?.apply()
+                                        }
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
                                     }

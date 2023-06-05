@@ -124,7 +124,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="CURRENT DEVICE: "
-        android:textColor="@color/black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@+id/saveBtnId"
         app:layout_constraintHorizontal_bias="0.466"

@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="@drawable/button_round_grey"
-        android:text="FORGOT PASSOWRD"
+        android:text="FORGOT PASSWORD"
         app:layout_constraintEnd_toEndOf="@+id/RegisBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/RegisBtn"
